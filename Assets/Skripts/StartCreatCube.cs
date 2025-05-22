@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class StartCreatCube : MonoBehaviour
 {
-    [SerializeField] private CubeFactory _cubeFactory;
+    [SerializeField] private CubeSpawner _spawner;
+    [SerializeField] private CubeExploder _exploder;
 
-    [Header("Creat First Cube")]
-    [SerializeField] private Vector3 _position;
-    [SerializeField] private Vector3 _scale;
-    [SerializeField] private Color _color;
-    [SerializeField] private float _splitChance;
-
-    private void Start()
+    private void Awake()
     {
-        _cubeFactory.CreateCube(_position, _scale, _color, _splitChance);
+        _spawner.Initialize(_exploder);
     }
 }

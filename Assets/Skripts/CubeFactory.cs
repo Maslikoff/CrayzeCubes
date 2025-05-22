@@ -3,32 +3,23 @@ using UnityEngine;
 
 public class CubeFactory : MonoBehaviour
 {
-    [SerializeField] private GameObject _cubePrefab;
-    [SerializeField] private float _defferenceCube = 2f;
+    [SerializeField] private Cube _cubePrefabe;
 
-    public CubeController CreateCube(Vector3 positions, Vector3 scale, Color color, float splitChance)
+    private RandomColorCube _cubeColorCube;
+
+    private void Awake()
     {
-        GameObject cube = Instantiate(_cubePrefab, positions, Quaternion.identity);
-        cube.transform.localScale = scale;
-
-        CubeController cubeController = cube.GetComponent<CubeController>();
-        cubeController.Initialize(color, splitChance);
-
-        return cubeController;
+        _cubeColorCube = GetComponent<RandomColorCube>();
     }
 
-    public List<CubeController> CreateSplitCubes(Cube cube, int count)
+    public Cube CreateCube(Vector3 position, float scale)
     {
-        List<CubeController> newCubes = new List<CubeController>();
+        var cube = Instantiate(_cubePrefabe, position, Quaternion.identity);
+        cube.transform.localScale = Vector3.one * scale;
 
-        for (int i = 0; i < count; i++)
-        {
-            Color reandomColor = new Color(Random.value, Random.value, Random.value);
-            CubeController newCube = CreateCube(cube.Position, cube.Scale / _defferenceCube, reandomColor, cube.SplitChance / _defferenceCube);
+        var renderer = cube.GetComponent<Renderer>();
+        renderer.material.color = _cubeColorCube.GetRandomColor();
 
-            newCubes.Add(newCube);
-        }
-
-        return newCubes;
+        return cube;
     }
 }

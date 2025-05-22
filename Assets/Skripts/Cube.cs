@@ -1,15 +1,14 @@
 using UnityEngine;
+using System;
 
-public class Cube
+[RequireComponent(typeof(Renderer))]
+[RequireComponent(typeof(Rigidbody))]
+public class Cube : MonoBehaviour 
 {
-    public Vector3 Position { get; }
-    public Vector3 Scale { get; }
-    public float SplitChance { get; }
+    public event Action<Cube> OnCubeClicked;
 
-    public Cube(Vector3 position, Vector3 scale, float splitChance)
+    private void OnMouseDown()
     {
-        Position = position;
-        Scale = scale;
-        SplitChance = splitChance;
+        OnCubeClicked?.Invoke(this);
     }
 }

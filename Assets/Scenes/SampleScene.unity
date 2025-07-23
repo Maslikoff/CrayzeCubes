@@ -157,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _explosionForce: 10
   _explosionRadius: 5
-  _upwardModifier: 0.5
+  _upwardsModifier: 0.5
 --- !u!114 &422766530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,13 +170,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3bef6113c7dde46a1629a26cb7ad78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cubePrefab: {fileID: -3921929819018668026, guid: 0e03f38a9e60edd499d7693c4d11f382, type: 3}
-  _initialCubeCount: 5
+  _cubePrefab: {fileID: 3394617673879382653, guid: 0e03f38a9e60edd499d7693c4d11f382, type: 3}
+  _initialCubesCount: 5
   _spawnRadius: 0.5
-  _minSpawnCount: 2
-  _maxSpawnCount: 6
-  _scaleDivider: 2
-  _splitChanceDivider: 2
+  _spawnCountRange: {x: 2, y: 6}
+  _scaleReduction: 2
 --- !u!114 &422766531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,6 +202,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c1ea4fd1adb7748972d591ecfc5490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inputReader: {fileID: 422766531}
+  _spawner: {fileID: 422766530}
+  _exploder: {fileID: 422766529}
 --- !u!4 &422766533
 Transform:
   m_ObjectHideFlags: 0

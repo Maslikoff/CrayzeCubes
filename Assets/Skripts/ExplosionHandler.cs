@@ -4,30 +4,23 @@ public class ExplosionHandler : MonoBehaviour
 {
     [SerializeField] private float _explosionForce = 10f;
     [SerializeField] private float _explosionRadius = 5f;
-    [SerializeField] private float _upwardModifier = 0.5f;
+    [SerializeField] private float _upwardsModifier = 0.5f;
 
-    private CubeEventSystem _cubeEvents;
-
-    private void Awake()
+    public void ApplyExplosionForce(Vector3 explosionCenter, Cube[] cubes)
     {
-        _cubeEvents = GetComponent<CubeEventSystem>();
-
-        _cubeEvents.OnCubeSplit += OnCubeSplit;
-    }
-
-    private void OnCubeSplit(ClickedCube original, ClickedCube[] newCubes)
-    {
-        foreach (ClickedCube cube in newCubes)
+        foreach (Cube cube in cubes)
         {
-            Vector3 direction = (cube.transform.position - original.transform.position).normalized;
-            float distance = Vector3.Distance(cube.transform.position, original.transform.position);
-            float force = _explosionForce * (1 - Mathf.Clamp01(distance / _explosionRadius));
-            cube.ApplyForce(direction * force + Vector3.up * _upwardModifier);
+            Rigidbody rb = cube.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.AddExplosionForce(
+                    _explosionForce,
+                    explosionCenter,
+                    _explosionRadius,
+                    _upwardsModifier,
+                    ForceMode.Impulse
+                );
+            }
         }
-    }
-
-    private void OnDestroy()
-    {
-        _cubeEvents.OnCubeSplit -= OnCubeSplit;
     }
 }

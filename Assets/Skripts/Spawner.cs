@@ -1,90 +1,60 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.UI.Image;
 using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private ClickedCube _cubePrefab;
-    [SerializeField] private int _initialCubeCount = 5;
-    [SerializeField] private float _spawnRadius = 0.5f;
-    [SerializeField, Min(2)] private int _minSpawnCount = 2;
-    [SerializeField, Min(3)] private int _maxSpawnCount = 6;
-    [SerializeField, Min(2)] private int _scaleDivider = 2;
-    [SerializeField, Min(2)] private int _splitChanceDivider = 2;
+    [SerializeField] private Cube _cubePrefab;
+    [SerializeField] private int _initialCubesCount = 5;
+    [SerializeField] private float _spawnRadius = 1f;
+    [SerializeField] private Vector2 _spawnCountRange = new Vector2(2, 6);
+    [SerializeField] private float _scaleReduction = 2f;
 
-    private CubeEventSystem _cubeEvents;
-    private List<ClickedCube> _activeCubes = new List<ClickedCube>();
-
-    private void Awake()
+    private void Start()
     {
-        _cubeEvents = GetComponent<CubeEventSystem>();
-        _cubeEvents.OnCubeClicked += OnCubeClicked;
-        _cubeEvents.OnCubeSplit += OnCubesSpawned;
+        SpawnInitialCubes();
     }
 
-    private void Start() => SpawnInitialCubes(_initialCubeCount);
-
-    private ClickedCube InstantiateCube(Vector3 position, Vector3 scale, int generation, float splitChance)
+    public void SpawnInitialCubes()
     {
-        ClickedCube cube = Instantiate(_cubePrefab, position, Quaternion.identity);
-        cube.transform.localScale = scale;
-        cube.Initialize(generation, splitChance);
-        _activeCubes.Add(cube);
-        return cube;
-    }
-
-    public void SpawnInitialCubes(int count)
-    {
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < _initialCubesCount; i++)
         {
-            Vector3 pos = transform.position + Random.insideUnitSphere * _spawnRadius;
-            InstantiateCube(pos, Vector3.one, 0, 1f);
+            SpawnCube(
+                transform.position + Random.insideUnitSphere * _spawnRadius,
+                Vector3.one,
+                1f
+            );
         }
     }
 
-    private bool ShouldSplit(ClickedCube cube) => Random.value <= cube.SplitChance;
-
-    public ClickedCube[] SplitCube(ClickedCube original)
+    public Cube[] SpawnChildCubes(Cube originalCube)
     {
-        int count = Random.Range(_minSpawnCount, _maxSpawnCount + 1);
-        ClickedCube[] newCubes = new ClickedCube[count];
+        int spawnCount = Random.Range((int)_spawnCountRange.x, (int)_spawnCountRange.y + 1);
+        Cube[] newCubes = new Cube[spawnCount];
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < spawnCount; i++)
         {
-            Vector3 spawnPos = original.transform.position + Random.insideUnitSphere * _spawnRadius;
-            newCubes[i] = InstantiateCube(
+            Vector3 spawnPos = originalCube.transform.position + Random.insideUnitSphere * _spawnRadius;
+
+            newCubes[i] = SpawnCube(
                 spawnPos,
-                original.transform.localScale / _scaleDivider,
-                original.Generation + 1,
-                original.SplitChance / _splitChanceDivider
+                originalCube.transform.localScale / _scaleReduction,
+                originalCube.SplitChance * 0.5f
             );
         }
 
         return newCubes;
     }
 
-    private void OnCubeClicked(ClickedCube cube)
+    private Cube SpawnCube(Vector3 position, Vector3 scale, float splitChance)
     {
-        if (ShouldSplit(cube))
-        {
-            var newCubes = SplitCube(cube);
-            _cubeEvents.TriggerCubeSplit(cube, newCubes);
-        }
+        Cube newCube = Instantiate(_cubePrefab, position, Quaternion.identity);
+        newCube.transform.localScale = scale;
+        newCube.Initialize(splitChance);
 
-        _activeCubes.Remove(cube);
-        Destroy(cube.gameObject);
+        return newCube;
     }
 
-    private void OnCubesSpawned(ClickedCube original, ClickedCube[] newCubes)
-    {
-        // Можно добавить дополнительную логику при spawnе новых кубов
-    }
-
-    private void OnDestroy()
-    {
-        _cubeEvents.OnCubeClicked -= OnCubeClicked;
-        _cubeEvents.OnCubeSplit -= OnCubesSpawned;
-    }
+    public void DestroyCube(GameObject cube) => Destroy(cube);
 }

@@ -5,6 +5,7 @@ using Random = UnityEngine.Random;
 public class Cube : MonoBehaviour
 {
     public float SplitChance { get; private set; }
+    public float CurrentScale => transform.localScale.x;
 
     private Renderer _renderer;
 

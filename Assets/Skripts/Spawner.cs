@@ -47,6 +47,8 @@ public class Spawner : MonoBehaviour
         return newCubes;
     }
 
+    public void DestroyCube(GameObject cube) => Destroy(cube);
+
     private Cube SpawnCube(Vector3 position, Vector3 scale, float splitChance)
     {
         Cube newCube = Instantiate(_cubePrefab, position, Quaternion.identity);
@@ -55,6 +57,4 @@ public class Spawner : MonoBehaviour
 
         return newCube;
     }
-
-    public void DestroyCube(GameObject cube) => Destroy(cube);
 }

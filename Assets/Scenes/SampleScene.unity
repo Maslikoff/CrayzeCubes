@@ -155,9 +155,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d09048c115cf9944d9a266236e61b04b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 10
-  _explosionRadius: 5
+  _baseExplosionForce: 10
+  _baseExplosionRadius: 5
   _upwardsModifier: 0.5
+  _scaleToForceMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.1
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &422766530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cubePrefab: {fileID: 3394617673879382653, guid: 0e03f38a9e60edd499d7693c4d11f382, type: 3}
-  _initialCubesCount: 5
+  _initialCubesCount: 50
   _spawnRadius: 0.5
   _spawnCountRange: {x: 2, y: 6}
   _scaleReduction: 2

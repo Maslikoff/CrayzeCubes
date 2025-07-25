@@ -25,7 +25,16 @@ public class SplitHandler : MonoBehaviour
             Cube[] newCubes = _spawner.SpawnChildCubes(cube);
             _exploder.ApplyExplosionForce(cube.transform.position, newCubes);
         }
+        else
+        {
+            _exploder.ExplodeCube(cube);
+        }
 
         _spawner.DestroyCube(cube.gameObject);
+    }
+
+    private void OnDisable()
+    {
+        _inputReader.OnCubeClicked -= HandleCubeClick;
     }
 }

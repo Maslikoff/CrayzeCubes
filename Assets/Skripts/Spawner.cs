@@ -13,7 +13,9 @@ public class Spawner : MonoBehaviour
         if (_spawnPoints.Count == 0)
         {
             Debug.LogWarning("Точки спавна не назначены! Отключение спаунера.");
+
             enabled = false;
+
             return;
         }
 

@@ -179,6 +179,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8477949834714377303, guid: 1389b80d94fb5e44381d6a11fbf3a485, type: 3}
+      propertyPath: _enemyPrefab
+      value: 
+      objectReference: {fileID: 465309696981561479, guid: 461b5cfdd4ee5b04ca906e49083c6c4c, type: 3}
+    - target: {fileID: 8477949834714377303, guid: 1389b80d94fb5e44381d6a11fbf3a485, type: 3}
       propertyPath: _spawnDirection.x
       value: -1
       objectReference: {fileID: 0}
@@ -243,6 +247,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8477949834714377303, guid: 1389b80d94fb5e44381d6a11fbf3a485, type: 3}
+      propertyPath: _enemyPrefab
+      value: 
+      objectReference: {fileID: 465309696981561479, guid: 461b5cfdd4ee5b04ca906e49083c6c4c, type: 3}
     - target: {fileID: 8477949834714377303, guid: 1389b80d94fb5e44381d6a11fbf3a485, type: 3}
       propertyPath: _spawnDirection.x
       value: 1
@@ -522,6 +530,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8477949834714377303, guid: 1389b80d94fb5e44381d6a11fbf3a485, type: 3}
+      propertyPath: _enemyPrefab
+      value: 
+      objectReference: {fileID: 465309696981561479, guid: 461b5cfdd4ee5b04ca906e49083c6c4c, type: 3}
+    - target: {fileID: 8477949834714377303, guid: 1389b80d94fb5e44381d6a11fbf3a485, type: 3}
       propertyPath: _spawnDirection.x
       value: 1
       objectReference: {fileID: 0}
@@ -681,6 +693,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8477949834714377303, guid: 1389b80d94fb5e44381d6a11fbf3a485, type: 3}
+      propertyPath: _enemyPrefab
+      value: 
+      objectReference: {fileID: 465309696981561479, guid: 461b5cfdd4ee5b04ca906e49083c6c4c, type: 3}
+    - target: {fileID: 8477949834714377303, guid: 1389b80d94fb5e44381d6a11fbf3a485, type: 3}
       propertyPath: _spawnDirection.z
       value: -1
       objectReference: {fileID: 0}
@@ -804,5 +820,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8477949834714377303, guid: 1389b80d94fb5e44381d6a11fbf3a485, type: 3}
+      propertyPath: _enemyPrefab
+      value: 
+      objectReference: {fileID: 465309696981561479, guid: 461b5cfdd4ee5b04ca906e49083c6c4c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1389b80d94fb5e44381d6a11fbf3a485, type: 3}

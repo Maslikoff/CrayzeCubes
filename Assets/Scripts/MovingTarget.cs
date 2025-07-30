@@ -25,7 +25,7 @@ public class MovingTarget : MonoBehaviour
     {
         transform.position += _currentDirection * _speed * Time.deltaTime;
 
-        if (Vector3.Distance(transform.position, _points[_currentPointIndex].position) < 0.1f)
+        if ((transform.position - _points[_currentPointIndex].position).sqrMagnitude <= 0.25f)
             MoveToNextWaypoint();
     }
 

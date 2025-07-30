@@ -6,8 +6,8 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     private Rigidbody _rigidbody;
+    private MovingTarget _target;
     private float _speed;
-    private Vector3 _direction;
 
     private void Awake()
     {
@@ -16,18 +16,24 @@ public class EnemyMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rigidbody.velocity = _direction * _speed;
+        Vector3 direction = (_target.Position - transform.position).normalized;
+
+        _rigidbody.velocity = direction * _speed;
+
+        LookAtTarget();
     }
 
-    public void Initialize(float speed, Vector3 direction)
+    public void Initialize(float speed, MovingTarget target)
     {
         _speed = Mathf.Max(0, speed);
-        SetDirection(direction);
+        _target = target;
+
+        LookAtTarget();
     }
 
-    public void SetDirection(Vector3 direction)
+    private void LookAtTarget()
     {
-        _direction = direction.normalized;
-        transform.forward = _direction;
+        if (_target != null)
+            transform.forward = (_target.Position - transform.position).normalized;
     }
 }

@@ -5,14 +5,14 @@ using UnityEngine;
 public class SpawnPoint : MonoBehaviour
 {
     [SerializeField] private Enemy _enemyPrefab;
-    [SerializeField] private Vector3 _spawnDirection = Vector3.forward;
+    [SerializeField] private MovingTarget _target;
 
     public Enemy SpawnEnemy()
     {
         Enemy enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
 
         if (enemy.TryGetComponent<Enemy>(out Enemy enemyComponent))
-            enemyComponent.Initialize(_spawnDirection);
+            enemyComponent.Initialize(_target);
         else
             Debug.LogError("Вражеский компонент отсутствует!", enemy);
 
